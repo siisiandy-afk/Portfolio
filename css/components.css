@@ -1,0 +1,1236 @@
+/* ==========================================================================
+   Andy Gaisie Portfolio - Reusable Components & Page Layouts
+   ========================================================================== */
+
+/* ==========================================================================
+   Buttons & Badges
+   ========================================================================== */
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.6rem;
+    border-radius: var(--radius-full);
+    background-color: var(--accent);
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+}
+
+.primary-btn:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(47, 107, 79, 0.25);
+}
+
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.6rem;
+    border-radius: var(--radius-full);
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.secondary-btn:hover {
+    border-color: var(--text);
+    transform: translateY(-2px);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    background-color: var(--accent-light);
+    color: var(--accent);
+}
+
+/* ==========================================================================
+   Landing Page Hero Section
+   ========================================================================== */
+.hero-section {
+    display: grid;
+    grid-template-columns: 1.45fr 1fr 0.45fr;
+    gap: 2rem;
+    align-items: center;
+    padding: 3rem 0 5.5rem;
+    min-height: 520px;
+}
+
+.hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.hero-title {
+    font-size: clamp(2.3rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.14;
+    letter-spacing: -0.035em;
+    color: var(--text);
+    margin-bottom: 1.35rem;
+}
+
+.hero-title em {
+    font-style: italic;
+    font-weight: 400;
+}
+
+.hero-subtitle {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+}
+
+.scroll-explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--muted);
+    transition: var(--transition);
+}
+
+.scroll-explore:hover {
+    color: var(--text);
+}
+
+.hero-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.plant-frame {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 320px;
+}
+
+.plant-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.05));
+    transition: var(--transition);
+}
+
+.plant-image:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+.hero-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sustainable-tagline {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.sustainable-tagline p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.tagline-dash {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--muted);
+    font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   Filter Bar (Work Archive)
+   ========================================================================== */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.4rem 1.05rem;
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--muted);
+    background-color: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-btn:hover {
+    color: var(--text);
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.filter-btn.active {
+    background-color: var(--text);
+    color: var(--white);
+    border-color: var(--text);
+}
+
+/* ==========================================================================
+   Work Cards (Grid & Archive)
+   ========================================================================== */
+.work-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+    margin-bottom: 5rem;
+}
+
+.work-card {
+    display: grid;
+    grid-template-columns: 1.1fr 1.35fr;
+    gap: 3.5rem;
+    align-items: center;
+    padding: 1rem 0;
+    transition: var(--transition);
+}
+
+.work-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.project-index {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 0.45rem;
+}
+
+.project-name {
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+}
+
+.project-tech {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 1.1rem;
+}
+
+.project-summary {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 1.35rem;
+    max-width: 400px;
+}
+
+.view-project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+    transition: var(--transition);
+}
+
+.view-project-link:hover {
+    color: var(--accent);
+    transform: translateX(3px);
+}
+
+.work-mockup {
+    display: flex;
+    justify-content: center;
+}
+
+.mockup-img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+}
+
+.work-card:hover .mockup-img {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.09);
+}
+
+.dark-mockup {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.more-projects-callout {
+    padding: 2.5rem 0 4rem;
+    border-top: 1px solid var(--border);
+}
+
+.more-link {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.more-link:hover {
+    color: var(--accent);
+}
+
+/* ==========================================================================
+   Currently Exploring (4 Columns)
+   ========================================================================== */
+.exploring-section {
+    padding: 2rem 0 5.5rem;
+}
+
+.exploring-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.25rem;
+}
+
+.exploring-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.exploring-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1.25rem;
+}
+
+.exploring-icon {
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.exploring-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+}
+
+.exploring-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.exploring-list li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.45;
+}
+
+/* ==========================================================================
+   More About Me Split Card (Landing Page)
+   ========================================================================== */
+.about-container {
+    padding: 1.5rem 0 5.5rem;
+}
+
+.about-card {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    background-color: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.about-hero-side {
+    background-image: linear-gradient(rgba(10, 15, 12, 0.45), rgba(10, 15, 12, 0.7)), url('../assets/images/About\ me\ image.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 3.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 320px;
+}
+
+.about-lead-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 1.25rem;
+    display: block;
+}
+
+.about-lead-title {
+    font-size: 1.7rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+    color: var(--white);
+}
+
+.about-details-side {
+    display: grid;
+    grid-template-columns: 1.6fr 0.85fr;
+    gap: 2.5rem;
+    padding: 3.25rem;
+    align-items: center;
+}
+
+.bio-text {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+}
+
+.about-more-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 0.5rem;
+    transition: var(--transition);
+}
+
+.about-more-link:hover {
+    color: var(--accent);
+    transform: translateX(3px);
+}
+
+.about-attributes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    border-left: 1px solid var(--border);
+    padding-left: 2rem;
+}
+
+.attribute-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+    transition: var(--transition);
+}
+
+.attr-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    background-color: var(--bg);
+    border: 1px solid rgba(210, 210, 215, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.attribute-item:hover .attr-icon {
+    background-color: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: scale(1.06);
+}
+
+.attribute-item:hover .attr-label {
+    color: var(--accent);
+}
+
+/* ==========================================================================
+   Dedicated About Page Styles (about.html)
+   ========================================================================== */
+.about-page-hero {
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 1rem 0 5rem;
+}
+
+.about-page-title {
+    font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+}
+
+.portrait-frame {
+    display: flex;
+    justify-content: center;
+}
+
+.portrait-img {
+    width: 100%;
+    max-width: 340px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.building-section {
+    padding: 3rem 0 4.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.building-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 2rem;
+}
+
+.faith-learning-section {
+    padding: 3rem 0 5rem;
+    border-top: 1px solid var(--border);
+}
+
+.faith-learning-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.block-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+.subtle-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-top: 1rem;
+}
+
+/* ==========================================================================
+   The Journey Section
+   ========================================================================== */
+.journey-section {
+    padding: 1.5rem 0 5.5rem;
+}
+
+.journey-layout {
+    display: grid;
+    grid-template-columns: 1.75fr 1fr;
+    gap: 2.5rem;
+    align-items: stretch;
+}
+
+.journey-timeline {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.milestone-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.milestone-marker {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 1.25rem;
+    height: 18px;
+}
+
+.timeline-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--border);
+    z-index: 2;
+}
+
+.milestone-item.active .timeline-dot {
+    background-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-light);
+}
+
+.timeline-line {
+    position: absolute;
+    left: 10px;
+    right: 0;
+    height: 1px;
+    background-color: var(--border);
+    top: 50%;
+}
+
+.milestone-year {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+}
+
+.milestone-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.milestone-list li {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.45;
+}
+
+.journey-quote-card {
+    background-image: linear-gradient(rgba(245, 245, 247, 0.7), rgba(245, 245, 247, 0.7)), url('../assets/images/misty-mountain.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--radius-md);
+    padding: 2.5rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid var(--border);
+}
+
+.journey-quote {
+    font-size: 1.25rem;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.quote-dash {
+    margin-top: 0.75rem;
+    color: var(--muted);
+    font-size: 1.2rem;
+}
+
+/* ==========================================================================
+   Journal Section & Cards (journal.html & index.html)
+   ========================================================================== */
+.journal-section {
+    padding: 1.5rem 0 5.5rem;
+}
+
+.journal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.journal-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.journal-post {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+}
+
+.journal-post:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+    border-color: rgba(47, 107, 79, 0.35);
+}
+
+.journal-thumb {
+    width: 100%;
+    height: 140px;
+    overflow: hidden;
+    background-color: #222;
+}
+
+.thumb-small {
+    height: 85px;
+}
+
+.thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.journal-post:hover .thumb-img {
+    transform: scale(1.05);
+}
+
+.journal-meta {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.journal-date {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 0.45rem;
+}
+
+.journal-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.journal-tags {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.tag-chip {
+    font-size: 0.72rem;
+    color: var(--muted);
+    background-color: var(--bg);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+}
+
+.read-more-link {
+    align-self: flex-start;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: var(--transition);
+}
+
+.journal-post:hover .read-more-link {
+    color: var(--accent);
+    transform: translateX(3px);
+}
+
+/* ==========================================================================
+   Project Case Study Components (projects/*.html)
+   ========================================================================== */
+.case-hero {
+    padding: 1rem 0 3.5rem;
+}
+
+.case-headline {
+    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+}
+
+.case-subtitle {
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+}
+
+.case-tag-line {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 2.5rem;
+}
+
+.case-banner {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+    margin-bottom: 4rem;
+}
+
+.case-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4rem;
+}
+
+.meta-block h4 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.65rem;
+}
+
+.meta-block p,
+.meta-block ul {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text);
+}
+
+.process-section {
+    padding: 1rem 0 4rem;
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.process-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 1.25rem;
+}
+
+.process-num {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.35rem;
+}
+
+.process-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.showcase-section {
+    padding: 2rem 0 4.5rem;
+}
+
+.showcase-img {
+    width: 100%;
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    margin-top: 1.5rem;
+}
+
+.device-screens-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 0.9fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    align-items: start;
+}
+
+.device-screen-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+}
+
+.screen-card-header {
+    padding: 0.75rem 1.15rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.device-screen-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.learned-box {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 2.5rem;
+    margin-bottom: 4.5rem;
+}
+
+.learned-box h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.85rem;
+}
+
+.learned-box p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.case-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem 0 4rem;
+    border-top: 1px solid var(--border);
+}
+
+/* ==========================================================================
+   Article Detail Components (journal/*.html)
+   ========================================================================== */
+.article-header {
+    padding: 1rem 0 2.5rem;
+}
+
+.article-reading-meta {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+}
+
+.article-headline {
+    font-size: clamp(2rem, 3.8vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+}
+
+.article-main-grid {
+    display: grid;
+    grid-template-columns: 2.1fr 1fr;
+    gap: 4rem;
+    padding-bottom: 5rem;
+}
+
+.article-content {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #2c2c2e;
+}
+
+.article-content h2,
+.article-content h3 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 2.25rem 0 1rem;
+    letter-spacing: -0.02em;
+}
+
+.article-content p {
+    margin-bottom: 1.4rem;
+}
+
+.article-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.sidebar-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-post {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.75rem;
+    transition: var(--transition);
+}
+
+.sidebar-post:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.sidebar-thumb {
+    width: 65px;
+    height: 65px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+}
+
+.sidebar-post-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.35;
+}
+
+/* ==========================================================================
+   Contact Page Components (contact.html)
+   ========================================================================== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 4.5rem;
+    padding: 1.5rem 0 6rem;
+}
+
+.contact-info-side {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-intro-title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+}
+
+.contact-intro-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 3rem;
+}
+
+.contact-channels-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-channel-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text);
+    transition: var(--transition);
+}
+
+.contact-channel-item:hover {
+    color: var(--accent);
+    transform: translateX(4px);
+}
+
+.channel-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+}
+
+.contact-form-card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.75rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background-color: var(--bg);
+    color: var(--text);
+    outline: none;
+    transition: var(--transition);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: var(--accent);
+    background-color: var(--white);
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-status {
+    margin-top: 1rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    display: none;
+}
+
+.form-status.success {
+    display: block;
+    color: var(--accent);
+}
+
+/* ==========================================================================
+   Let's Talk Section Banner
+   ========================================================================== */
+.talk-section {
+    padding: 1.5rem 0 4.5rem;
+}
+
+.talk-banner {
+    background-image: linear-gradient(rgba(10, 20, 15, 0.68), rgba(10, 20, 15, 0.72)), url("../assets/images/Let's talk banner image.jpg");
+    background-size: cover;
+    background-position: center 42%;
+    border-radius: var(--radius-lg);
+    padding: 3.5rem 3.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--white);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.talk-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.85rem;
+}
+
+.talk-title {
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--white);
+}
+
+.talk-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1.85rem;
+}
+
+.get-in-touch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.6rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+    transition: var(--transition);
+}
+
+.get-in-touch-btn:hover {
+    background-color: var(--white);
+    color: var(--text);
+    border-color: var(--white);
+    transform: translateY(-2px);
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.social-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.85);
+    transition: var(--transition);
+}
+
+.social-item:hover {
+    color: var(--white);
+    transform: translateY(-1px);
+}

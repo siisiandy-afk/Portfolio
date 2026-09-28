@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work - Andy Gaisie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="brand-logo">ANDY GAISIE</a>
+            <nav class="nav-menu">
+                <a href="work.html" class="nav-link active">Work</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="journal.html" class="nav-link">Journal</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <header class="page-header">
+            <h1 class="page-title">Work</h1>
+            <p class="page-subtitle">Things I've built, designed and explored.</p>
+        </header>
+
+        <!-- Category Filter -->
+        <nav class="filter-bar" aria-label="Project category filter">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="web">Web</button>
+            <button class="filter-btn" data-filter="design">Design</button>
+            <button class="filter-btn" data-filter="science">Science</button>
+            <button class="filter-btn" data-filter="experiments">Experiments</button>
+        </nav>
+
+        <!-- Projects List -->
+        <div class="work-grid">
+            <!-- Project 01: Fruit for Thought -->
+            <article class="work-card" data-category="web design">
+                <div class="work-info">
+                    <span class="project-index">01</span>
+                    <h2 class="project-name">Fruit for Thought</h2>
+                    <p class="project-tech">Web Application / Firebase / UI</p>
+                    <p class="project-summary">
+                        An interactive website designed to make Bible study, scripture learning, and online quizzes engaging, structured, and accessible.
+                    </p>
+                    <a href="projects/fruit-for-thought.html" class="view-project-link">
+                        View case study <span class="link-arrow">→</span>
+                    </a>
+                </div>
+                <div class="work-mockup">
+                    <a href="projects/fruit-for-thought.html">
+                        <img src="assets/images/fruit-mockup.png" alt="Fruit for Thought app on laptop and smartphone" class="mockup-img">
+                    </a>
+                </div>
+            </article>
+
+            <!-- Project 02: Church Quiz -->
+            <article class="work-card" data-category="web experiments">
+                <div class="work-info">
+                    <span class="project-index">02</span>
+                    <h2 class="project-name">Church Quiz <span class="badge">Coming Soon</span></h2>
+                    <p class="project-tech">Web Application / Firebase</p>
+                    <p class="project-summary">
+                        An online quiz buzzer system designed for church events and competitions with realtime buzzer synchronization, live leaderboard, and admin controls.
+                    </p>
+                    <span class="more-link" style="font-size: 0.88rem; color: var(--muted);">
+                        Case study coming soon →
+                    </span>
+                </div>
+                <div class="work-mockup">
+                    <img src="assets/images/quiz-mockup.png" alt="Church Quiz app on laptop and smartphone" class="mockup-img dark-mockup">
+                </div>
+            </article>
+
+            <!-- Project 03: Nexene Studio -->
+            <article class="work-card" data-category="design web">
+                <div class="work-info">
+                    <span class="project-index">03</span>
+                    <h2 class="project-name">Nexene Studio <span class="badge">Coming Soon</span></h2>
+                    <p class="project-tech">Design / Web</p>
+                    <p class="project-summary">
+                        A creative studio for design, web and digital solutions. Exploring digital craftsmanship and brand identities.
+                    </p>
+                    <a href="contact.html" class="view-project-link">
+                        Inquire about studio <span class="link-arrow">→</span>
+                    </a>
+                </div>
+                <div class="work-mockup">
+                    <img src="assets/images/nexene-mockup.png" alt="Nexene Studio branding and design card" class="mockup-img dark-mockup">
+                </div>
+            </article>
+        </div>
+
+        <div class="more-projects-callout">
+            <span class="more-link">More projects coming soon →</span>
+        </div>
+    </main>
+
+    <!-- Bottom Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">ANDY GAISIE</div>
+            <div class="footer-center">Science × Technology × Creativity</div>
+            <div class="footer-right">
+                <span>&copy; 2026 Andy Gaisie</span>
+                <a href="#" class="back-to-top" title="Back to top">↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/animations.js"></script>
+</body>
+</html>

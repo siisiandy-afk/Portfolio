@@ -1,0 +1,204 @@
+/* ==========================================================================
+   Andy Gaisie Portfolio - Responsive Media Queries
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .hero-section {
+        grid-template-columns: 1.2fr 1fr;
+    }
+    
+    .hero-right {
+        display: none;
+    }
+    
+    .exploring-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+    }
+    
+    .about-card {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-hero-side {
+        min-height: 240px;
+    }
+    
+    .journey-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .journal-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .journal-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .article-main-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .process-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 1.25rem 0 0.85rem;
+    }
+    
+    .nav-container {
+        padding: 0 1.25rem;
+    }
+    
+    .nav-menu {
+        gap: 1.25rem;
+    }
+    
+    .nav-link {
+        font-size: 0.82rem;
+    }
+    
+    .main-content {
+        padding: 0 1.25rem;
+    }
+    
+    /* Hero */
+    .hero-section {
+        grid-template-columns: 1fr;
+        padding: 2rem 0 3.5rem;
+        min-height: auto;
+    }
+    
+    .plant-frame {
+        max-width: 260px;
+        margin: 2rem auto;
+    }
+    
+    /* Work */
+    .work-card {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .filter-bar {
+        gap: 0.4rem;
+        margin-bottom: 2.5rem;
+    }
+    
+    /* About */
+    .about-page-hero {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .portrait-frame {
+        order: -1;
+    }
+    
+    .portrait-img {
+        max-width: 260px;
+    }
+    
+    .faith-learning-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .about-details-side {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+    }
+    
+    .about-attributes {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding-left: 0;
+        padding-top: 1.5rem;
+    }
+    
+    /* Case Study */
+    .case-meta-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .process-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .device-screens-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    /* Contact */
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .contact-form-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    /* The Journey */
+    .journey-timeline {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .timeline-line {
+        display: none;
+    }
+    
+    /* Talk Banner */
+    .talk-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+        padding: 2.5rem 1.75rem;
+    }
+    
+    .talk-right {
+        align-items: flex-start;
+        width: 100%;
+    }
+    
+    .social-links {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    /* Footer */
+    .footer-inner {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 0 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-title {
+        font-size: 2.1rem;
+    }
+    
+    .exploring-grid,
+    .journal-grid,
+    .journal-grid-4 {
+        grid-template-columns: 1fr;
+    }
+    
+    .process-grid {
+        grid-template-columns: 1fr;
+    }
+}
