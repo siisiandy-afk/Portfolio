@@ -202,3 +202,61 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Cookie Tracker Case Study Responsive */
+@media (max-width: 900px) {
+    .ct-psr-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .ct-perf-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ct-ai-grid {
+        grid-template-columns: 1fr;
+        padding: 1.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .ct-never-guess-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .ct-uncertainty-compare {
+        grid-template-columns: 1fr;
+    }
+    
+    .ct-arch-card {
+        padding: 2rem 1.25rem;
+    }
+    
+    .ct-arch-node {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .ct-arch-node .ct-badge {
+        align-self: flex-start;
+        margin-top: 0.5rem;
+    }
+    
+    .ct-challenge-header {
+        padding: 1rem 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+    }
+    
+    .ct-psr-container {
+        padding: 1.5rem;
+    }
+    
+    .ct-outcome-card {
+        padding: 2.5rem 1.5rem;
+    }
+}
+

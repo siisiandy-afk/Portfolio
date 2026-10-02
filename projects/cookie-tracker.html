@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Tracker | Andy Gaisie</title>
+    <meta name="description" content="A technical case study of Cookie Tracker, a Manifest V3 browser extension that locally analyzes cookie metadata while omitting raw cookie values.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="../index.html" class="brand-logo">ANDY GAISIE</a>
+            <nav class="nav-menu">
+                <a href="../work.html" class="nav-link active">Work</a>
+                <a href="../about.html" class="nav-link">About</a>
+                <a href="../journal.html" class="nav-link">Journal</a>
+                <a href="../contact.html" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <article class="case-hero">
+            <!-- 1. HERO -->
+            <a href="../work.html" class="back-link">← Back to Work</a>
+            <h1 class="case-headline">Cookie Tracker</h1>
+            <p class="case-subtitle">Understand the cookies used by websites you visit.</p>
+            <p class="case-tag-line">Browser Extension / Privacy Engineering / 2026</p>
+
+            <p style="font-size: 1.12rem; line-height: 1.65; color: var(--text); max-width: 780px; margin-bottom: 1.25rem;">
+                A privacy-focused Manifest V3 browser extension that makes browser cookie metadata easier to understand through local analysis and transparent uncertainty.
+            </p>
+
+            <!-- Tech Badges -->
+            <div class="ct-badge-group">
+                <span class="ct-badge accent">Manifest V3</span>
+                <span class="ct-badge">Vanilla JavaScript</span>
+                <span class="ct-badge">Chrome APIs</span>
+                <span class="ct-badge accent">Privacy by Design</span>
+                <span class="ct-badge">100% On-Device</span>
+            </div>
+
+            <!-- Hero Real Screenshot -->
+            <div class="ct-hero-image-wrap">
+                <img src="cookie-tracker/overview.png" alt="Cookie Tracker active analysis popup overview on chatgpt.com showing cookie detection, first-party categorization, and change notifications">
+                <p class="ct-hero-image-caption">
+                    Real screenshot: Cookie Tracker v1.0.0 popup auditing active tab cookies on chatgpt.com with real-time change detection.
+                </p>
+            </div>
+
+            <!-- Case Meta Grid -->
+            <div class="case-meta-grid">
+                <div>
+                    <div class="meta-block" style="margin-bottom: 2rem;">
+                        <h4>MY ROLE</h4>
+                        <p>Architecture<br>Extension Engineering<br>UI/UX Design<br>Verification &amp; Auditing</p>
+                    </div>
+                    <div class="meta-block">
+                        <h4>TECHNOLOGY</h4>
+                        <p>Manifest V3<br>Chrome Extension APIs (Cookies, Tabs, Storage)<br>Vanilla ES6+ JavaScript<br>HTML5 / Clean DOM API</p>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="meta-block" style="margin-bottom: 2rem;">
+                        <h4>CORE PARADIGM</h4>
+                        <p>
+                            Strict on-device metadata normalization with raw cookie values omitted permanently at ingestion, pairing heuristic transparency with calibrated uncertainty.
+                        </p>
+                    </div>
+                    <div class="meta-block">
+                        <h4>DELIVERABLE</h4>
+                        <p>
+                            Production-ready Chromium extension (v1.0.0) with zero runtime dependencies, zero external network egress, and verified safe DOM rendering.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. THE PROBLEM -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 01 / THE VISIBILITY GAP</p>
+                    <h2 class="ct-section-title">The Illusion of Cookie Consent</h2>
+                    <p class="ct-section-lead">
+                        Modern websites present cookie consent banners with simple binary toggles. However, once consent is granted or denied, users are left with zero meaningful visibility into what is actually stored on their machines.
+                    </p>
+                </div>
+
+                <div class="ct-problem-grid">
+                    <div class="ct-problem-card">
+                        <div class="ct-problem-icon">⏳</div>
+                        <h3 class="ct-problem-title">Opaque Persistence</h3>
+                        <p class="ct-problem-desc">
+                            Users cannot tell whether a cookie is an ephemeral session token discarded on tab closure or a persistent tracking identifier scheduled to linger on disk for years.
+                        </p>
+                    </div>
+
+                    <div class="ct-problem-card">
+                        <div class="ct-problem-icon">🌐</div>
+                        <h3 class="ct-problem-title">Ambiguous Attribution</h3>
+                        <p class="ct-problem-desc">
+                            Websites load scripts from dozens of subdomains and content delivery networks. Disentangling true primary domain state from third-party advertising origins is virtually impossible in native browser dialogs.
+                        </p>
+                    </div>
+
+                    <div class="ct-problem-card">
+                        <div class="ct-problem-icon">🔄</div>
+                        <h3 class="ct-problem-title">Unclear Lifecycles</h3>
+                        <p class="ct-problem-desc">
+                            Cookies mutate silently as users navigate, authenticate, and interact. Traditional inspection displays only an isolated snapshot, hiding lifecycle mutations and attribute drift between visits.
+                        </p>
+                    </div>
+
+                    <div class="ct-problem-card">
+                        <div class="ct-problem-icon">🛡️</div>
+                        <h3 class="ct-problem-title">Hidden Security Attributes</h3>
+                        <p class="ct-problem-desc">
+                            Critical defensive flags (<span class="ct-code-pill">Secure</span>, <span class="ct-code-pill">HttpOnly</span>, <span class="ct-code-pill">SameSite</span>) govern vulnerability to cross-site scripting (XSS) and network interception, yet remain buried inside developer tooling.
+                        </p>
+                    </div>
+
+                    <div class="ct-problem-card">
+                        <div class="ct-problem-icon">❓</div>
+                        <h3 class="ct-problem-title">Uncertain Cookie Roles</h3>
+                        <p class="ct-problem-desc">
+                            Cryptic strings like <span class="ct-code-pill">__cf_bm</span>, <span class="ct-code-pill">oai-did</span>, or <span class="ct-code-pill">_ga</span> mean nothing without contextual intelligence. Users cannot distinguish critical authentication tokens from advertising trackers.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. WHY A BROWSER EXTENSION? -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 02 / SYSTEM ARCHITECTURE</p>
+                    <h2 class="ct-section-title">Why a Browser Extension?</h2>
+                    <p class="ct-section-lead">
+                        Remote website scanners inspect pages from headless servers in a datacenter, which fundamentally fails to capture personalized session states, authenticated flows, or user-specific cookies. A browser extension was chosen because true visibility requires local execution.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+                    <div style="background-color: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem;">
+                        <h4 style="font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem;">Authenticated Context</h4>
+                        <p style="font-size: 0.9rem; color: var(--muted); line-height: 1.55;">
+                            Inspects the actual cookies set during real, authenticated browsing sessions rather than synthetic, unauthenticated crawler crawls.
+                        </p>
+                    </div>
+                    <div style="background-color: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem;">
+                        <h4 style="font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem;">Zero Data Leakage</h4>
+                        <p style="font-size: 0.9rem; color: var(--muted); line-height: 1.55;">
+                            Scanning happens 100% on-device. No URLs, session identifiers, or metadata are ever transmitted to an external server or proxy.
+                        </p>
+                    </div>
+                    <div style="background-color: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem;">
+                        <h4 style="font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem;">Native API Precision</h4>
+                        <p style="font-size: 0.9rem; color: var(--muted); line-height: 1.55;">
+                            Direct integration with Chrome's <span class="ct-code-pill">chrome.cookies</span> API provides authoritative flags directly from the browser's internal cookie jar.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pipeline Architecture SVG / HTML Diagram -->
+                <div class="ct-arch-card">
+                    <p style="font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-align: center; margin-bottom: 2rem;">
+                        On-Device Pipeline Architecture
+                    </p>
+
+                    <div class="ct-arch-flow">
+                        <!-- Step 1 -->
+                        <div class="ct-arch-node">
+                            <div class="ct-arch-node-main">
+                                <div class="ct-arch-node-icon">🌐</div>
+                                <div>
+                                    <div class="ct-arch-node-title">Website / Active Tab</div>
+                                    <div class="ct-arch-node-sub">User navigates to any URL in Chromium</div>
+                                </div>
+                            </div>
+                            <span class="ct-badge">Host Origin</span>
+                        </div>
+
+                        <div class="ct-arch-connector">
+                            <svg width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <polyline points="19 12 12 19 5 12"></polyline>
+                            </svg>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="ct-arch-node">
+                            <div class="ct-arch-node-main">
+                                <div class="ct-arch-node-icon">🗄️</div>
+                                <div>
+                                    <div class="ct-arch-node-title">Browser Cookie Store</div>
+                                    <div class="ct-arch-node-sub">Queried via chrome.cookies.getAll({ url })</div>
+                                </div>
+                            </div>
+                            <span class="ct-badge">Chromium Jar</span>
+                        </div>
+
+                        <div class="ct-arch-connector">
+                            <svg width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <polyline points="19 12 12 19 5 12"></polyline>
+                            </svg>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="ct-arch-node">
+                            <div class="ct-arch-node-main">
+                                <div class="ct-arch-node-icon">🍪</div>
+                                <div>
+                                    <div class="ct-arch-node-title">Cookie Tracker Service</div>
+                                    <div class="ct-arch-node-sub">Asynchronous coordinator &amp; tab state listener</div>
+                                </div>
+                            </div>
+                            <span class="ct-badge">Manifest V3</span>
+                        </div>
+
+                        <div class="ct-arch-connector">
+                            <svg width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <polyline points="19 12 12 19 5 12"></polyline>
+                            </svg>
+                        </div>
+
+                        <!-- Step 4: Highlighted sanitization node -->
+                        <div class="ct-arch-node highlight">
+                            <div class="ct-arch-node-main">
+                                <div class="ct-arch-node-icon">🛡️</div>
+                                <div>
+                                    <div class="ct-arch-node-title">Metadata Normalization</div>
+                                    <div class="ct-arch-node-sub">Strict whitelist ingestion: <strong>Raw Values Permanently Omitted</strong></div>
+                                </div>
+                            </div>
+                            <span class="ct-badge accent">Privacy Barrier</span>
+                        </div>
+
+                        <div class="ct-arch-connector">
+                            <svg width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <polyline points="19 12 12 19 5 12"></polyline>
+                            </svg>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="ct-arch-node">
+                            <div class="ct-arch-node-main">
+                                <div class="ct-arch-node-icon">🧠</div>
+                                <div>
+                                    <div class="ct-arch-node-title">Cookie Intelligence</div>
+                                    <div class="ct-arch-node-sub">48 knowledge-base entries &amp; 14 provider domain signatures</div>
+                                </div>
+                            </div>
+                            <span class="ct-badge">Classification</span>
+                        </div>
+
+                        <div class="ct-arch-connector">
+                            <svg width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <polyline points="19 12 12 19 5 12"></polyline>
+                            </svg>
+                        </div>
+
+                        <!-- Step 6 -->
+                        <div class="ct-arch-node">
+                            <div class="ct-arch-node-main">
+                                <div class="ct-arch-node-icon">🔍</div>
+                                <div>
+                                    <div class="ct-arch-node-title">Insights + Change Detection</div>
+                                    <div class="ct-arch-node-sub">Security flags check &amp; composite-key snapshot diffing</div>
+                                </div>
+                            </div>
+                            <span class="ct-badge">Audit Engine</span>
+                        </div>
+
+                        <div class="ct-arch-connector">
+                            <svg width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <polyline points="19 12 12 19 5 12"></polyline>
+                            </svg>
+                        </div>
+
+                        <!-- Step 7 -->
+                        <div class="ct-arch-node">
+                            <div class="ct-arch-node-main">
+                                <div class="ct-arch-node-icon">💾</div>
+                                <div>
+                                    <div class="ct-arch-node-title">Local Storage</div>
+                                    <div class="ct-arch-node-sub">chrome.storage.local (sanitized domain-keyed snapshots)</div>
+                                </div>
+                            </div>
+                            <span class="ct-badge">On-Device Cache</span>
+                        </div>
+
+                        <div class="ct-arch-connector">
+                            <svg width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <polyline points="19 12 12 19 5 12"></polyline>
+                            </svg>
+                        </div>
+
+                        <!-- Step 8 -->
+                        <div class="ct-arch-node">
+                            <div class="ct-arch-node-main">
+                                <div class="ct-arch-node-icon">🖥️</div>
+                                <div>
+                                    <div class="ct-arch-node-title">Popup UI</div>
+                                    <div class="ct-arch-node-sub">Safe DOM rendering, interactive filters &amp; diff views</div>
+                                </div>
+                            </div>
+                            <span class="ct-badge">User View</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. PRODUCT PREVIEW -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 03 / PRODUCT PREVIEW</p>
+                    <h2 class="ct-section-title">Interface in Action</h2>
+                    <p class="ct-section-lead">
+                        High-fidelity, real screenshots captured directly from Chromium on Windows, illustrating the complete auditing workflow from live overview to granular attribute diffing.
+                    </p>
+                </div>
+
+                <div class="ct-gallery-grid">
+                    <!-- Overview -->
+                    <div class="ct-gallery-item">
+                        <div class="ct-gallery-header">
+                            <span>01 / Overview</span>
+                            <span>Live Analysis</span>
+                        </div>
+                        <div class="ct-gallery-body">
+                            <img src="cookie-tracker/overview.png" alt="Cookie Tracker Overview Screen" class="ct-gallery-img">
+                        </div>
+                        <div class="ct-gallery-caption">
+                            <strong>Live Audit &amp; Categorization Overview</strong>
+                            Summarizes total cookie volume, first vs. third-party attribution, classified categories, and alerts for cookies modified since the last visit.
+                        </div>
+                    </div>
+
+                    <!-- Changes -->
+                    <div class="ct-gallery-item">
+                        <div class="ct-gallery-header">
+                            <span>02 / Changes</span>
+                            <span>Diff Engine</span>
+                        </div>
+                        <div class="ct-gallery-body">
+                            <img src="cookie-tracker/changes.png" alt="Cookie Tracker Changes Screen" class="ct-gallery-img">
+                        </div>
+                        <div class="ct-gallery-caption">
+                            <strong>Granular Change Detection</strong>
+                            Tracks added, removed, modified, and unchanged cookies between consecutive scans, highlighting attribute-level lifespan drift.
+                        </div>
+                    </div>
+
+                    <!-- Insights -->
+                    <div class="ct-gallery-item">
+                        <div class="ct-gallery-header">
+                            <span>03 / Insights</span>
+                            <span>Intelligence &amp; Search</span>
+                        </div>
+                        <div class="ct-gallery-body">
+                            <img src="cookie-tracker/insight.png" alt="Cookie Tracker Insights Screen" class="ct-gallery-img">
+                        </div>
+                        <div class="ct-gallery-caption">
+                            <strong>Searchable Inventory &amp; Filter Pills</strong>
+                            Interactive exploration by name, category, or party attribution with human-readable expiration durations and confidence tags.
+                        </div>
+                    </div>
+
+                    <!-- Scan History -->
+                    <div class="ct-gallery-item">
+                        <div class="ct-gallery-header">
+                            <span>04 / Scan History</span>
+                            <span>Timeline Audit</span>
+                        </div>
+                        <div class="ct-gallery-body">
+                            <img src="cookie-tracker/scan-history.png" alt="Cookie Tracker Scan History Screen" class="ct-gallery-img">
+                        </div>
+                        <div class="ct-gallery-caption">
+                            <strong>Persistent Scan History</strong>
+                            Chronological log of scanned domains with timestamps, cookie counts, and quick "Compare" triggers stored strictly on-device.
+                        </div>
+                    </div>
+
+                    <!-- Settings -->
+                    <div class="ct-gallery-item">
+                        <div class="ct-gallery-header">
+                            <span>05 / Settings &amp; Privacy</span>
+                            <span>Controls</span>
+                        </div>
+                        <div class="ct-gallery-body">
+                            <img src="cookie-tracker/settings.png" alt="Cookie Tracker Settings Screen" class="ct-gallery-img">
+                        </div>
+                        <div class="ct-gallery-caption">
+                            <strong>Privacy Architecture &amp; Controls</strong>
+                            Transparently details the strict on-device data model, zero telemetry guarantees, and provides detection behavior toggles.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. NEVER GUESS -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 04 / CALIBRATED UNCERTAINTY</p>
+                    <h2 class="ct-section-title">Never Guess: Transparent Uncertainty</h2>
+                    <p class="ct-section-lead">
+                        Most privacy tools overpromise by inventing cookie classifications based on fragile keyword substrings. Cookie Tracker rejects false confidence in favor of rigorous epistemic honesty.
+                    </p>
+                </div>
+
+                <div class="ct-never-guess-card">
+                    <h3 class="ct-never-guess-headline">Cookie Tracker does not invent cookie purposes when evidence is insufficient.</h3>
+                    <p class="ct-never-guess-text">
+                        If a cookie's origin and signature are verified, it receives a clear classification and calibrated confidence score. When evidence is incomplete, custom, or ambiguous, Cookie Tracker explicitly tags it as <strong>Unknown with Low confidence</strong> rather than misleading the user.
+                    </p>
+
+                    <div class="ct-uncertainty-compare">
+                        <div class="ct-compare-box verified">
+                            <div class="ct-compare-badge">Verified Evidence</div>
+                            <div class="ct-compare-rule">→ Classification + Confidence</div>
+                            <p class="ct-compare-desc">
+                                Pattern matched against verified provider signatures or standard specification tokens. Assigned High or Medium confidence with verified role attribution.
+                            </p>
+                        </div>
+
+                        <div class="ct-compare-box unknown">
+                            <div class="ct-compare-badge">Insufficient Evidence</div>
+                            <div class="ct-compare-rule">→ Unknown + Low Confidence</div>
+                            <p class="ct-compare-desc">
+                                Bespoke, proprietary, or undocumented session keys. Presented transparently as Unknown without deceptive guesswork.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="ct-stat-badges-row">
+                        <div class="ct-stat-badge">
+                            <span class="ct-stat-badge-num">48</span>
+                            <span class="ct-stat-badge-label">Curated knowledge-base entries</span>
+                        </div>
+                        <div class="ct-stat-badge">
+                            <span class="ct-stat-badge-num">14</span>
+                            <span class="ct-stat-badge-label">Provider domain signatures</span>
+                        </div>
+                        <div class="ct-stat-badge">
+                            <span class="ct-stat-badge-num">3</span>
+                            <span class="ct-stat-badge-label">Confidence tiers (High / Medium / Low)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. HOW IT WORKS -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 05 / DATA PIPELINE</p>
+                    <h2 class="ct-section-title">How It Works: Ingestion &amp; Sanitization</h2>
+                    <p class="ct-section-lead">
+                        Security begins at ingestion. When the browser retrieves cookies, raw cookie values are permanently stripped before any analysis, classification, or storage occurs.
+                    </p>
+                </div>
+
+                <p style="font-size: 0.96rem; color: var(--text); line-height: 1.65; margin-bottom: 1.5rem;">
+                    The pipeline enforces a strict whitelist of technical metadata fields. Any unapproved property—including authentication bearer tokens, passwords, session values, or unexpected browser properties—is discarded at the boundary:
+                </p>
+
+                <!-- Approved Metadata Fields -->
+                <div class="ct-fields-grid">
+                    <div class="ct-field-item">
+                        <span class="ct-field-name">name</span>
+                        <span class="ct-field-desc">String cookie identifier</span>
+                    </div>
+                    <div class="ct-field-item">
+                        <span class="ct-field-name">domain</span>
+                        <span class="ct-field-desc">Associated host/domain</span>
+                    </div>
+                    <div class="ct-field-item">
+                        <span class="ct-field-name">path</span>
+                        <span class="ct-field-desc">Scoped URI path</span>
+                    </div>
+                    <div class="ct-field-item">
+                        <span class="ct-field-name">session</span>
+                        <span class="ct-field-desc">Boolean ephemeral flag</span>
+                    </div>
+                    <div class="ct-field-item">
+                        <span class="ct-field-name">expirationDate</span>
+                        <span class="ct-field-desc">Epoch seconds timestamp</span>
+                    </div>
+                    <div class="ct-field-item">
+                        <span class="ct-field-name">secure</span>
+                        <span class="ct-field-desc">HTTPS transport requirement</span>
+                    </div>
+                    <div class="ct-field-item">
+                        <span class="ct-field-name">httpOnly</span>
+                        <span class="ct-field-desc">JavaScript access restriction</span>
+                    </div>
+                    <div class="ct-field-item">
+                        <span class="ct-field-name">sameSite</span>
+                        <span class="ct-field-desc">Cross-site context policy</span>
+                    </div>
+                    <div class="ct-field-item">
+                        <span class="ct-field-name">hostOnly</span>
+                        <span class="ct-field-desc">Exact host match constraint</span>
+                    </div>
+                </div>
+
+                <div style="background-color: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.75rem;">
+                    <h4 style="font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem;">Deterministic Compound Identity</h4>
+                    <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.6;">
+                        Because RFC 6265 permits identical cookie names across distinct domain scopes or path hierarchies, normalized cookies are indexed by a compound identity key (<span class="ct-code-pill">name|domain|path</span>). This prevents collisions and guarantees mathematical consistency in change diff calculations.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 7. CORE FEATURES -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 06 / CAPABILITIES</p>
+                    <h2 class="ct-section-title">Core Engineering Features</h2>
+                    <p class="ct-section-lead">
+                        Engineered as a lightweight, modular system delivering rapid forensic visibility into client-side state without bogging down the browser.
+                    </p>
+                </div>
+
+                <div class="ct-features-grid">
+                    <div class="ct-feature-card">
+                        <div class="ct-feature-icon">🔍</div>
+                        <h3 class="ct-feature-title">Cookie Detection</h3>
+                        <p class="ct-feature-desc">
+                            Real-time discovery of all cookies accessible to the active tab via Chrome's native cookie store, distinguishing top-level host cookies from embedded third-party contexts.
+                        </p>
+                    </div>
+
+                    <div class="ct-feature-card">
+                        <div class="ct-feature-icon">🧠</div>
+                        <h3 class="ct-feature-title">Cookie Intelligence</h3>
+                        <p class="ct-feature-desc">
+                            Rule-based pattern matching utilizing 48 curated signatures and 14 provider signatures to accurately identify essential, analytics, and functional cookies with clear confidence levels.
+                        </p>
+                    </div>
+
+                    <div class="ct-feature-card">
+                        <div class="ct-feature-icon">🛡️</div>
+                        <h3 class="ct-feature-title">Technical Privacy Insights</h3>
+                        <p class="ct-feature-desc">
+                            Automated security posture audits alerting users to missing <span class="ct-code-pill">Secure</span> flags on HTTPS origins, unflagged <span class="ct-code-pill">HttpOnly</span> session tokens, and excessively broad <span class="ct-code-pill">SameSite=None</span> configurations.
+                        </p>
+                    </div>
+
+                    <div class="ct-feature-card">
+                        <div class="ct-feature-icon">📜</div>
+                        <h3 class="ct-feature-title">Scan History</h3>
+                        <p class="ct-feature-desc">
+                            Indexed, per-domain historical archive persisted in local sandboxed storage, allowing users to review previous audit sessions without creating any cloud footprints.
+                        </p>
+                    </div>
+
+                    <div class="ct-feature-card">
+                        <div class="ct-feature-icon">⚖️</div>
+                        <h3 class="ct-feature-title">Change Detection</h3>
+                        <p class="ct-feature-desc">
+                            State diff engine comparing consecutive site visits to quantify added, removed, modified, and unchanged cookies, surfacing silent attribute alterations over time.
+                        </p>
+                    </div>
+
+                    <div class="ct-feature-card">
+                        <div class="ct-feature-icon">⚙️</div>
+                        <h3 class="ct-feature-title">Settings &amp; Privacy Controls</h3>
+                        <p class="ct-feature-desc">
+                            Configurable scanning behavior (automatic vs. manual scan-on-open), instant history purging controls, and verifiable on-device data architectural documentation.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. ENGINEERING CHALLENGES -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 07 / TECHNICAL DEEP DIVE</p>
+                    <h2 class="ct-section-title">Engineering Challenges</h2>
+                    <p class="ct-section-lead">
+                        Overcoming the subtle concurrency hazards, cryptographic constraints, and DOM security boundaries inherent to browser extension development.
+                    </p>
+                </div>
+
+                <div class="ct-challenges-grid">
+                    <!-- Challenge 1 -->
+                    <div class="ct-challenge-card">
+                        <div class="ct-challenge-header">
+                            <span class="ct-challenge-title">Asynchronous Scan Race Conditions</span>
+                            <span class="ct-challenge-num">Challenge 01</span>
+                        </div>
+                        <div class="ct-psr-container">
+                            <div class="ct-psr-block">
+                                <span class="ct-psr-label problem">Problem</span>
+                                <div class="ct-psr-body">
+                                    Rapid tab switching or reopening the popup while an asynchronous <span class="ct-code-pill">chrome.cookies.getAll</span> query was inflight could cause delayed scan results from tab A to render over tab B or corrupt local storage state.
+                                </div>
+                            </div>
+                            <div class="ct-psr-block">
+                                <span class="ct-psr-label solution">Solution</span>
+                                <div class="ct-psr-body">
+                                    Introduced an execution lock and monotonic scan token tied to the active tab ID and timestamp. Any completing promise verifies that its scan token matches the currently active request before writing state or rendering.
+                                </div>
+                            </div>
+                            <div class="ct-psr-block">
+                                <span class="ct-psr-label result">Result</span>
+                                <div class="ct-psr-body">
+                                    Guaranteed linear consistency: stale asynchronous resolutions are safely aborted, eliminating UI jitter and cross-tab state clobbering.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Challenge 2 -->
+                    <div class="ct-challenge-card">
+                        <div class="ct-challenge-header">
+                            <span class="ct-challenge-title">Compound Cookie Identity</span>
+                            <span class="ct-challenge-num">Challenge 02</span>
+                        </div>
+                        <div class="ct-psr-container">
+                            <div class="ct-psr-block">
+                                <span class="ct-psr-label problem">Problem</span>
+                                <div class="ct-psr-body">
+                                    Treating a cookie's <span class="ct-code-pill">name</span> as a primary key caused severe collision bugs on enterprise domains that maintain multiple cookies with identical names scoped to different paths (e.g. <span class="ct-code-pill">/</span> vs <span class="ct-code-pill">/app</span>) or subdomains.
+                                </div>
+                            </div>
+                            <div class="ct-psr-block">
+                                <span class="ct-psr-label solution">Solution</span>
+                                <div class="ct-psr-body">
+                                    Architected a deterministic composite identity string: <span class="ct-code-pill">`${name}|${domain}|${path}`</span>. All lookup maps, diffing algorithms, and persistence structures adhere strictly to this three-tuple key.
+                                </div>
+                            </div>
+                            <div class="ct-psr-block">
+                                <span class="ct-psr-label result">Result</span>
+                                <div class="ct-psr-body">
+                                    Flawless disambiguation of identically named cookies, enabling 100% accurate change calculations across complex, multi-subdomain architectures.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Challenge 3 -->
+                    <div class="ct-challenge-card">
+                        <div class="ct-challenge-header">
+                            <span class="ct-challenge-title">Safe DOM Rendering</span>
+                            <span class="ct-challenge-num">Challenge 03</span>
+                        </div>
+                        <div class="ct-psr-container">
+                            <div class="ct-psr-block">
+                                <span class="ct-psr-label problem">Problem</span>
+                                <div class="ct-psr-body">
+                                    Displaying arbitrary cookie names, domain strings, and paths supplied by arbitrary web pages creates an injection hazard if rendered via <span class="ct-code-pill">innerHTML</span>, introducing DOM-based cross-site scripting (XSS).
+                                </div>
+                            </div>
+                            <div class="ct-psr-block">
+                                <span class="ct-psr-label solution">Solution</span>
+                                <div class="ct-psr-body">
+                                    Completely prohibited <span class="ct-code-pill">innerHTML</span>, <span class="ct-code-pill">outerHTML</span>, and string templating in the rendering layer. Built pure DOM generation utilities using <span class="ct-code-pill">document.createElement()</span> and <span class="ct-code-pill">textContent</span> assignments.
+                                </div>
+                            </div>
+                            <div class="ct-psr-block">
+                                <span class="ct-psr-label result">Result</span>
+                                <div class="ct-psr-body">
+                                    Structural immunity to DOM XSS, fully satisfying strict Manifest V3 Content Security Policy requirements with zero sanitization overhead.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Challenge 4 -->
+                    <div class="ct-challenge-card">
+                        <div class="ct-challenge-header">
+                            <span class="ct-challenge-title">Conservative Classification</span>
+                            <span class="ct-challenge-num">Challenge 04</span>
+                        </div>
+                        <div class="ct-psr-container">
+                            <div class="ct-psr-block">
+                                <span class="ct-psr-label problem">Problem</span>
+                                <div class="ct-psr-body">
+                                    Overly aggressive substring heuristics (such as classifying any cookie containing "track" or "sess" as advertising or session) generate unacceptable false positive rates, eroding user trust.
+                                </div>
+                            </div>
+                            <div class="ct-psr-block">
+                                <span class="ct-psr-label solution">Solution</span>
+                                <div class="ct-psr-body">
+                                    Designed a multi-tier classification hierarchy that requires matching both exact name signatures or validated provider domain rules, explicitly falling back to <span class="ct-code-pill">Unknown</span> with <span class="ct-code-pill">Low</span> confidence when evidence is insufficient.
+                                </div>
+                            </div>
+                            <div class="ct-psr-block">
+                                <span class="ct-psr-label result">Result</span>
+                                <div class="ct-psr-body">
+                                    High-integrity, defensible intelligence that transparently highlights uncertainty rather than misleading the user with synthetic certainties.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. PRIVACY & SECURITY -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 08 / VERIFIED POSTURE</p>
+                    <h2 class="ct-section-title">Privacy &amp; Security Architecture</h2>
+                    <p class="ct-section-lead">
+                        Security in Cookie Tracker is not an afterthought; it is built into the data model and confirmed by automated static audits.
+                    </p>
+                </div>
+
+                <div class="ct-privacy-grid">
+                    <div class="ct-privacy-item">
+                        <div class="ct-check-icon">✓</div>
+                        <div>
+                            <div class="ct-privacy-title">Raw Values Permanently Omitted</div>
+                            <div class="ct-privacy-desc">The cookie <span class="ct-code-pill">value</span> field is deleted at the normalization boundary and never stored or rendered.</div>
+                        </div>
+                    </div>
+
+                    <div class="ct-privacy-item">
+                        <div class="ct-check-icon">✓</div>
+                        <div>
+                            <div class="ct-privacy-title">Secondary Storage Sanitization</div>
+                            <div class="ct-privacy-desc">Snapshots pass through schema sanitizers before being committed to disk to prevent state contamination.</div>
+                        </div>
+                    </div>
+
+                    <div class="ct-privacy-item">
+                        <div class="ct-check-icon">✓</div>
+                        <div>
+                            <div class="ct-privacy-title">Zero External Network Calls</div>
+                            <div class="ct-privacy-desc">The extension has no remote backend API and issues zero <span class="ct-code-pill">fetch()</span> or <span class="ct-code-pill">XMLHttpRequest</span> requests.</div>
+                        </div>
+                    </div>
+
+                    <div class="ct-privacy-item">
+                        <div class="ct-check-icon">✓</div>
+                        <div>
+                            <div class="ct-privacy-title">Zero Telemetry &amp; Analytics</div>
+                            <div class="ct-privacy-desc">No tracking beacons, usage telemetry, error reporting pings, or third-party monitoring SDKs exist.</div>
+                        </div>
+                    </div>
+
+                    <div class="ct-privacy-item">
+                        <div class="ct-check-icon">✓</div>
+                        <div>
+                            <div class="ct-privacy-title">Sandboxed Local Storage</div>
+                            <div class="ct-privacy-desc">All scan history and preferences reside strictly within the browser profile via <span class="ct-code-pill">chrome.storage.local</span>.</div>
+                        </div>
+                    </div>
+
+                    <div class="ct-privacy-item">
+                        <div class="ct-check-icon">✓</div>
+                        <div>
+                            <div class="ct-privacy-title">No innerHTML or Dynamic Execution</div>
+                            <div class="ct-privacy-desc">Zero usage of <span class="ct-code-pill">innerHTML</span>, <span class="ct-code-pill">eval()</span>, or <span class="ct-code-pill">new Function()</span> across the entire codebase.</div>
+                        </div>
+                    </div>
+
+                    <div class="ct-privacy-item">
+                        <div class="ct-check-icon">✓</div>
+                        <div>
+                            <div class="ct-privacy-title">Strict Manifest V3 CSP</div>
+                            <div class="ct-privacy-desc">Complies with Chromium's strict Content Security Policy, prohibiting remote code execution.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. TESTING -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 09 / VERIFICATION</p>
+                    <h2 class="ct-section-title">Automated Testing &amp; Verification</h2>
+                    <p class="ct-section-lead">
+                        A comprehensive test suite guarantees pipeline correctness, edge-case resilience, and regression prevention before packaging.
+                    </p>
+                </div>
+
+                <div class="ct-testing-stats-grid">
+                    <div class="ct-stat-card">
+                        <div class="ct-stat-number">139</div>
+                        <div class="ct-stat-title">Automated Assertions</div>
+                        <div class="ct-stat-desc">Covering normalization, parsing, diffing, and sanitization routines.</div>
+                    </div>
+
+                    <div class="ct-stat-card">
+                        <div class="ct-stat-number">8</div>
+                        <div class="ct-stat-title">Test Suites</div>
+                        <div class="ct-stat-desc">Modular test suites targeting specific functional subsystems.</div>
+                    </div>
+
+                    <div class="ct-stat-card">
+                        <div class="ct-stat-number">100%</div>
+                        <div class="ct-stat-title">Mocked Chrome APIs</div>
+                        <div class="ct-stat-desc">Fidelity-tested chrome.cookies and chrome.storage mock harness.</div>
+                    </div>
+
+                    <div class="ct-stat-card">
+                        <div class="ct-stat-number">0</div>
+                        <div class="ct-stat-title">Security Lints Found</div>
+                        <div class="ct-stat-desc">Automated static audits verifying zero prohibited APIs or string interpolation.</div>
+                    </div>
+                </div>
+
+                <div style="background-color: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.75rem; margin-bottom: 1.5rem;">
+                    <h4 style="font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.65rem;">Testing Methodologies Applied</h4>
+                    <ul style="font-size: 0.92rem; color: var(--muted); line-height: 1.6; list-style: disc; padding-left: 1.25rem;">
+                        <li><strong>Mocked Chrome APIs:</strong> In-memory simulators for <span class="ct-code-pill">chrome.cookies</span>, <span class="ct-code-pill">chrome.tabs</span>, and <span class="ct-code-pill">chrome.storage.local</span> for deterministic headless runs.</li>
+                        <li><strong>Synthetic Payloads:</strong> High-entropy test vectors including unicode cookie names, boundary epoch timestamps, root/deep path hierarchies, and empty attribute sets.</li>
+                        <li><strong>Static Security Audits:</strong> Automated source scanning ensuring complete absence of forbidden primitives (<span class="ct-code-pill">eval</span>, <span class="ct-code-pill">innerHTML</span>).</li>
+                        <li><strong>Manual Chrome Verification:</strong> Multi-site behavioral smoke testing on complex real-world web applications (Google, ChatGPT, university portals, e-commerce stores).</li>
+                        <li><strong>Clean Release Verification:</strong> Packaging audits ensuring no test files, dev tooling, or unminified artifacts leak into distribution archives.</li>
+                    </ul>
+                </div>
+
+                <div style="background-color: rgba(110, 110, 115, 0.06); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem 1.25rem; font-size: 0.88rem; color: var(--muted);">
+                    <strong style="color: var(--text);">Testing Platform Scope:</strong> Verification was conducted primarily on <strong>Chrome/Chromium on Windows</strong>. Cross-browser targets such as Firefox (Gecko) and Safari (Webkit) were not evaluated for this release.
+                </div>
+            </section>
+
+            <!-- 11. PERFORMANCE -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 10 / BENCHMARKS</p>
+                    <h2 class="ct-section-title">Performance Benchmarks</h2>
+                    <p class="ct-section-lead">
+                        Measured in-memory analysis and insight calculations under synthetic stress and real-world loads.
+                    </p>
+                </div>
+
+                <div class="ct-perf-grid">
+                    <!-- Card 1 -->
+                    <div class="ct-perf-card">
+                        <div class="ct-perf-badge">Stress Benchmark</div>
+                        <div class="ct-perf-metric">100–130 <em>ms</em></div>
+                        <div class="ct-perf-desc">
+                            <strong>500 Synthetic Cookies:</strong> Full in-memory metadata normalization, knowledge-base classification, and insight calculations completed in approximately 100–130 ms.
+                        </div>
+                        <div class="ct-perf-note">
+                            *Note: Measurement reflects pure in-memory compute. Browser IPC overhead, DOM reflow/painting, and local storage serialization are excluded.
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="ct-perf-card">
+                        <div class="ct-perf-badge">Typical Payload</div>
+                        <div class="ct-perf-metric">&lt; 15 <em>ms</em></div>
+                        <div class="ct-perf-desc">
+                            <strong>Standard 10–50 Cookies:</strong> Typical commercial web pages average 10–50 cookies. Full in-memory analysis executes in under 15 ms, delivering immediate UI responsiveness.
+                        </div>
+                        <div class="ct-perf-note">
+                            Sub-millisecond per-cookie throughput ensures instantaneous popup initialization without interface lag.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 12. AI-ASSISTED DEVELOPMENT -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 11 / METHODOLOGY</p>
+                    <h2 class="ct-section-title">AI-Assisted Development: Rigor &amp; Acceleration</h2>
+                    <p class="ct-section-lead">
+                        Cookie Tracker was built using Antigravity as an engineering acceleration tool. AI acted as a high-speed implementation partner, with system boundaries and verification anchored strictly by human engineering oversight.
+                    </p>
+                </div>
+
+                <div class="ct-ai-grid">
+                    <!-- Human -->
+                    <div>
+                        <div class="ct-ai-col-header">
+                            <span style="font-size: 1.25rem;">👤</span>
+                            <h3 class="ct-ai-role-title">Human Engineer (Governance &amp; Rigor)</h3>
+                        </div>
+                        <div class="ct-ai-list">
+                            <div class="ct-ai-list-item">
+                                <span class="ct-ai-dot"></span>
+                                <div><strong>Problem Definition &amp; Scope:</strong> Framed the user visibility gap and bounded the feature set.</div>
+                            </div>
+                            <div class="ct-ai-list-item">
+                                <span class="ct-ai-dot"></span>
+                                <div><strong>System Architecture:</strong> Designed the unidirectional pipeline and composite key indexing.</div>
+                            </div>
+                            <div class="ct-ai-list-item">
+                                <span class="ct-ai-dot"></span>
+                                <div><strong>Privacy Boundaries:</strong> Enforced permanent omission of raw cookie values at normalization.</div>
+                            </div>
+                            <div class="ct-ai-list-item">
+                                <span class="ct-ai-dot"></span>
+                                <div><strong>Security Criteria:</strong> Mandated strict DOM-safe methods (<span class="ct-code-pill">textContent</span> only, zero <span class="ct-code-pill">innerHTML</span>).</div>
+                            </div>
+                            <div class="ct-ai-list-item">
+                                <span class="ct-ai-dot"></span>
+                                <div><strong>Testing &amp; Verification:</strong> Validated all 139 assertions, ran synthetic stress tests, and conducted manual browser audits.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI -->
+                    <div>
+                        <div class="ct-ai-col-header">
+                            <span style="font-size: 1.25rem;">⚡</span>
+                            <h3 class="ct-ai-role-title">Antigravity (Engineering Acceleration)</h3>
+                        </div>
+                        <div class="ct-ai-list">
+                            <div class="ct-ai-list-item">
+                                <span class="ct-ai-dot"></span>
+                                <div><strong>Boilerplate Generation:</strong> Accelerated Chrome extension manifest scaffolding and schema setup.</div>
+                            </div>
+                            <div class="ct-ai-list-item">
+                                <span class="ct-ai-dot"></span>
+                                <div><strong>Implementation Acceleration:</strong> Rapidly fleshed out parsing algorithms and public suffix heuristics.</div>
+                            </div>
+                            <div class="ct-ai-list-item">
+                                <span class="ct-ai-dot"></span>
+                                <div><strong>Test Scaffolding:</strong> Generated comprehensive synthetic test assertions from human-defined constraints.</div>
+                            </div>
+                            <div class="ct-ai-list-item">
+                                <span class="ct-ai-dot"></span>
+                                <div><strong>Refactoring &amp; Debugging:</strong> Identified subtle edge cases in asynchronous promise lifecycles.</div>
+                            </div>
+                            <div class="ct-ai-list-item">
+                                <span class="ct-ai-dot"></span>
+                                <div><strong>Technical Documentation:</strong> Assisted in articulating architecture specifications and release notes.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="font-size: 0.92rem; color: var(--muted); margin-top: 1.5rem; text-align: center; font-style: italic;">
+                    Emphasizing verification over automation: AI accelerated execution, while human discipline defined the guarantees.
+                </p>
+            </section>
+
+            <!-- 13. LIMITATIONS -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 12 / HONEST BOUNDARIES</p>
+                    <h2 class="ct-section-title">Architectural Boundaries &amp; Limitations</h2>
+                    <p class="ct-section-lead">
+                        High-quality software openly acknowledges its operational boundaries. Cookie Tracker intentionally limits scope to maintain security and avoid false claims.
+                    </p>
+                </div>
+
+                <div class="ct-limitations-list">
+                    <div class="ct-limitation-card">
+                        <span class="ct-limitation-bullet"></span>
+                        <div class="ct-limitation-text">
+                            <strong>Curated Knowledge Base is Not Exhaustive:</strong> The 48 knowledge-base entries target common web services; custom, proprietary, or regional cookies will remain classified as <span class="ct-code-pill">Unknown</span>.
+                        </div>
+                    </div>
+
+                    <div class="ct-limitation-card">
+                        <span class="ct-limitation-bullet"></span>
+                        <div class="ct-limitation-text">
+                            <strong>Curated Public Suffix Table:</strong> First vs. third-party attribution relies on a bundled curated public suffix lookup rather than the full, dynamic Mozilla Public Suffix List.
+                        </div>
+                    </div>
+
+                    <div class="ct-limitation-card">
+                        <span class="ct-limitation-bullet"></span>
+                        <div class="ct-limitation-text">
+                            <strong>No CNAME Cloaking Detection:</strong> Third-party tracking endpoints cloaked behind first-party DNS CNAME aliases cannot be unmasked without native DNS resolution privileges.
+                        </div>
+                    </div>
+
+                    <div class="ct-limitation-card">
+                        <span class="ct-limitation-bullet"></span>
+                        <div class="ct-limitation-text">
+                            <strong>No Web Storage Inspection:</strong> Scoped strictly to HTTP cookies; client-side <span class="ct-code-pill">localStorage</span>, <span class="ct-code-pill">sessionStorage</span>, and <span class="ct-code-pill">IndexedDB</span> are not audited.
+                        </div>
+                    </div>
+
+                    <div class="ct-limitation-card">
+                        <span class="ct-limitation-bullet"></span>
+                        <div class="ct-limitation-text">
+                            <strong>Restricted Browser Pages:</strong> In accordance with Chromium security architecture, the extension cannot inspect internal pages (<span class="ct-code-pill">chrome://</span>, Chrome Web Store).
+                        </div>
+                    </div>
+
+                    <div class="ct-limitation-card">
+                        <span class="ct-limitation-bullet"></span>
+                        <div class="ct-limitation-text">
+                            <strong>No Blocking or Deletion:</strong> Cookie Tracker is an observational forensic auditing tool, not an ad-blocker or cookie-removal utility.
+                        </div>
+                    </div>
+
+                    <div class="ct-limitation-card">
+                        <span class="ct-limitation-bullet"></span>
+                        <div class="ct-limitation-text">
+                            <strong>No Legal Compliance Assessment:</strong> Provides technical metadata insights rather than formal legal GDPR or ePrivacy compliance evaluations.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 14. LESSONS LEARNED -->
+            <section class="ct-section">
+                <div class="ct-section-header">
+                    <p class="ct-section-tag">— 13 / RETROSPECTIVE</p>
+                    <h2 class="ct-section-title">Key Engineering Lessons</h2>
+                    <p class="ct-section-lead">
+                        Five core insights gained from designing, developing, and auditing Cookie Tracker v1.0.0.
+                    </p>
+                </div>
+
+                <div class="ct-lessons-grid">
+                    <div class="ct-lesson-card">
+                        <span class="ct-lesson-num">Lesson 01</span>
+                        <h3 class="ct-lesson-title">Architectural Boundaries</h3>
+                        <p class="ct-lesson-desc">
+                            Enforcing privacy invariants at the boundary—dropping sensitive fields before intelligence algorithms ever see the data—protects user data far more reliably than relying on developer discipline downstream.
+                        </p>
+                    </div>
+
+                    <div class="ct-lesson-card">
+                        <span class="ct-lesson-num">Lesson 02</span>
+                        <h3 class="ct-lesson-title">Data Modeling Precision</h3>
+                        <p class="ct-lesson-desc">
+                            Subtle domain specifications matter. Modeling a cookie as a compound entity (<span class="ct-code-pill">name + domain + path</span>) rather than a simple name string eliminated severe diffing anomalies on enterprise domains.
+                        </p>
+                    </div>
+
+                    <div class="ct-lesson-card">
+                        <span class="ct-lesson-num">Lesson 03</span>
+                        <h3 class="ct-lesson-title">Asynchronous Coordination</h3>
+                        <p class="ct-lesson-desc">
+                            Browser extensions live in an asynchronous environment governed by user tab switching and lifecycle suspension. Monotonic request tokens and execution guards are vital for state stability.
+                        </p>
+                    </div>
+
+                    <div class="ct-lesson-card">
+                        <span class="ct-lesson-num">Lesson 04</span>
+                        <h3 class="ct-lesson-title">Representing Uncertainty</h3>
+                        <p class="ct-lesson-desc">
+                            Software should be comfortable declaring what it does not know. Resisting the urge to guess cookie purposes preserved analytical credibility and delivers genuine forensic value.
+                        </p>
+                    </div>
+
+                    <div class="ct-lesson-card">
+                        <span class="ct-lesson-num">Lesson 05</span>
+                        <h3 class="ct-lesson-title">AI Acceleration &amp; Verification</h3>
+                        <p class="ct-lesson-desc">
+                            AI coding tools can produce rapid implementations, but their output is only as trustworthy as the automated test harness, security lints, and human specifications verifying it.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 15. OUTCOME -->
+            <section class="ct-section" style="border-bottom: none;">
+                <div class="ct-outcome-card">
+                    <span class="ct-outcome-tag">Project Milestone</span>
+                    <h2 class="ct-outcome-title">Cookie Tracker v1.0.0</h2>
+                    <p class="ct-outcome-sub">
+                        Local metadata-based cookie visibility through a privacy-first Manifest V3 browser extension.
+                    </p>
+
+                    <div class="ct-action-buttons">
+                        <a href="https://github.com/siisiandy-afk" target="_blank" rel="noopener noreferrer" class="primary-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                            View on GitHub
+                        </a>
+
+                        <button class="secondary-btn btn-disabled" title="Extension submission is currently pending publication" aria-disabled="true">
+                            <span>Chrome Web Store</span>
+                            <span class="badge" style="font-size: 0.72rem; padding: 0.2rem 0.5rem;">Coming soon</span>
+                        </button>
+
+                        <a href="../work.html" class="secondary-btn">
+                            ← Back to Projects
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom Case Navigation -->
+            <nav class="case-nav-bar" style="margin-top: 3rem;">
+                <a href="../work.html" class="subtle-link">← All projects</a>
+                <a href="fruit-for-thought.html" class="subtle-link">Next project: Fruit for Thought →</a>
+            </nav>
+        </article>
+    </main>
+
+    <!-- Bottom Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">ANDY GAISIE</div>
+            <div class="footer-center">Science × Technology × Creativity</div>
+            <div class="footer-right">
+                <span>&copy; 2026 Andy Gaisie</span>
+                <a href="#" class="back-to-top" title="Back to top">↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/animations.js"></script>
+</body>
+</html>
